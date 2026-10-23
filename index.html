@@ -563,10 +563,10 @@ section{position:relative}
 const CONFIG = {
   siteName: "Unreal Studio",
   email: "itsunrealstudio@gmail.com",   // shown on Contact + footer; used by the form until a form service is connected
-  siteUrl: "",            // e.g. "https://unreal.studio" — enables canonical + og:url tags
+  siteUrl: "https://unrealstudio-dr4t.vercel.app",            // e.g. "https://unreal.studio" — enables canonical + og:url tags
   routing: "hash",        // "hash" works anywhere (incl. this hosted preview). Use "history" on a server that rewrites all paths to index.html
   form: {
-    endpoint: "",         // POST URL of your form service (Formspree, Basin, your own API). Empty = not connected.
+    endpoint: "https://formspree.io/f/xaeewgzb",         // POST URL of your form service (Formspree, Basin, your own API). Empty = not connected.
     projectTypes: ["Website Development","Interactive Web Design","E-commerce Development","Branding / Identity","Other"],
     budgets: ["Not sure yet","Small project","Medium project","Large project","Ongoing partnership"]
   },
@@ -1195,7 +1195,7 @@ const ContactForm = {
       try { window.open(url, "_blank") || (location.href = url); } catch { }
       return {ok:false, mailto:url};
     }
-    const res = await fetch(CONFIG.form.endpoint, {method:"POST", headers:{"Content-Type":"application/json", "Accept":"application/json"}, body:JSON.stringify(data)});
+    const res = await fetch(CONFIG.form.endpoint, {method:"POST", headers:{"Content-Type":"application/json", "Accept":"application/json"}, body:JSON.stringify({...data, _subject:`New enquiry from ${data.name} — Unreal Studio`})});
     return {ok: res.ok};
   },
   mount(form){
